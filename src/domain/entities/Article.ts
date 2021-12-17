@@ -1,9 +1,9 @@
-export type Event = {
+export interface Event {
   id: string
   provider: string
 }
 
-export type Launch = {
+export interface Launch {
   id: string
   provider: string
 }
