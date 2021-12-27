@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "build": "rimraf dist && tsc",
-    "test": "jest --passWithNoTests --no-cache --runInBand",
+    "test": "jest --passWithNoTests --no-cache --runInBand --detectOpenHandles --forceExit",
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:coverage": "npm test -- --coverage",
