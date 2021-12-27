@@ -9,7 +9,6 @@ export class MongoArticleRepository implements ListOneArticleRepository {
 
     const {
       id: _id,
-
       featured,
       title,
       url,
