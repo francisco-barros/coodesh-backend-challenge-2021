@@ -9,7 +9,7 @@ export interface Launch {
 }
 
 export interface Article {
-  id: string
+  id: number
   featured: boolean
   title: string
   url: string

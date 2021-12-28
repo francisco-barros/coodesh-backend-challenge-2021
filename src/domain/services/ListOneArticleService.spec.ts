@@ -8,7 +8,7 @@ describe('ListOneArticleService', () => {
   let input: ListOneArticleRepository.Input
 
   const articleStub = {
-    id: 'any_id',
+    id: 1,
     featured: false,
     title: 'any_title',
     url: 'any_url',
@@ -27,7 +27,7 @@ describe('ListOneArticleService', () => {
   }
 
   beforeAll(() => {
-    input = { id: 'any_id' }
+    input = { id: 1 }
     listOneArticleRepo = mock()
     listOneArticleRepo.listOne.mockResolvedValue(articleStub)
   })

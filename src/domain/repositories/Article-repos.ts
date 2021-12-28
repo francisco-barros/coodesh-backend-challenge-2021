@@ -5,6 +5,6 @@ export interface ListOneArticleRepository {
 }
 
 export namespace ListOneArticleRepository {
-  export interface Input { id: string }
+  export interface Input { id: number }
   export type Output = Article | null
 }
