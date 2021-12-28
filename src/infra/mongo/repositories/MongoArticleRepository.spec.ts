@@ -45,12 +45,12 @@ describe('MongoArticleRepository', () => {
     it('should return an article if article exists', async () => {
       await ArticleModel.create(articleStub)
 
-      const article = await sut.listOne({ id: '1' })
-      expect(article?.id).toEqual('1')
+      const article = await sut.listOne({ id: 1 })
+      expect(article?.id).toEqual(1)
     })
 
     it('should return null if article does not exist', async () => {
-      const result = await sut.listOne({ id: '1' })
+      const result = await sut.listOne({ id: 1 })
       expect(result).toBeNull()
     })
 
@@ -58,7 +58,7 @@ describe('MongoArticleRepository', () => {
       const mongoArticleRepo: MockProxy<MongoArticleRepository> = mock()
       mongoArticleRepo.listOne.mockRejectedValueOnce(new Error('any_error'))
 
-      const promise = mongoArticleRepo.listOne({ id: '1' })
+      const promise = mongoArticleRepo.listOne({ id: 1 })
 
       await expect(promise).rejects.toThrow(new Error('any_error'))
     })
