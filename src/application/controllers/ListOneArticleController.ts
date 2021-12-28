@@ -14,7 +14,7 @@ export class ListOneArticleController extends Controller {
     try {
       const { id } = request
 
-      if (id === '' || id === undefined || id === null) return badRequest(new Error('Article id is obligatory'))
+      if (isNaN(id) || id === '' || id === undefined || id === null) return badRequest(new Error('Article id is obligatory and must be a number'))
 
       const article = await this.listOneArticleService.listOne({ id })
 
