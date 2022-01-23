@@ -58,7 +58,6 @@
     "helmet": "^4.6.0",
     "mongoose": "^6.1.2",
     "rimraf": "^3.0.2",
-    "uuid-int": "^3.1.0",
-    "validator": "^13.7.0"
+    "uuid-int": "^3.1.0"
   }
 }
