@@ -8,14 +8,17 @@ describe('MongoArticleRepository', () => {
   let mongoServer: MongoMemoryServer
   let sut: MongoArticleRepository
 
-  const articleStub = {
+  const input = { page: 1, limit: 1 }
+
+  const articlesStub = [{
+    _id: 1,
     featured: false,
     title: 'any_title',
     url: 'any_url',
     imageUrl: 'any_imageUrl',
     newsSite: 'any_newsSite',
     summary: 'any_sumary',
-    publishedAt: new Date(),
+    publishedAt: new Date('2022-01-13T02:57:04.680Z'),
     launches: [{
       id: 'any_launch_id',
       provider: 'any_provider'
@@ -24,7 +27,24 @@ describe('MongoArticleRepository', () => {
       id: 'any_event_id',
       provider: 'any_provider'
     }]
-  }
+  },{
+    _id: 2,
+    featured: false,
+    title: 'other_title',
+    url: 'other_url',
+    imageUrl: 'other_imageUrl',
+    newsSite: 'other_newsSite',
+    summary: 'other_sumary',
+    publishedAt: new Date('2022-01-14T02:57:04.680Z'),
+    launches: [{
+      id: 'other_launch_id',
+      provider: 'other_provider'
+    }],
+    events: [{
+      id: 'other_event_id',
+      provider: 'other_provider'
+    }]
+  }]
 
   beforeAll(async () => {
     mongoServer = await MongoMemoryServer.create()
@@ -43,7 +63,7 @@ describe('MongoArticleRepository', () => {
 
   describe('listOne', () => {
     it('should return an article if article exists', async () => {
-      await ArticleModel.create(articleStub)
+      await ArticleModel.create(articlesStub[0])
 
       const article = await sut.listOne({ id: 1 })
       expect(article?.id).toEqual(1)
@@ -59,6 +79,29 @@ describe('MongoArticleRepository', () => {
       mongoArticleRepo.listOne.mockRejectedValueOnce(new Error('any_error'))
 
       const promise = mongoArticleRepo.listOne({ id: 1 })
+
+      await expect(promise).rejects.toThrow(new Error('any_error'))
+    })
+  })
+
+  describe('listAll', () => {
+    it('should return articles according to pagination', async () => {
+      await ArticleModel.insertMany(articlesStub)
+
+      const articles = await sut.listAll(input)
+      expect(articles?.length).toBe(1)
+    })
+
+    it('should return null if articles do not exist', async () => {
+      const result = await sut.listAll(input)
+      expect(result).toBeNull()
+    })
+
+    it('should rethrow if MongoArticleRepository throws', async () => {
+      const mongoClassRepo: MockProxy<MongoArticleRepository> = mock()
+      mongoClassRepo.listAll.mockRejectedValueOnce(new Error('any_error'))
+
+      const promise = mongoClassRepo.listAll(input)
 
       await expect(promise).rejects.toThrow(new Error('any_error'))
     })
