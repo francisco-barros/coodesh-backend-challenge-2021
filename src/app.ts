@@ -3,7 +3,7 @@ import { urlencoded } from 'body-parser'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import helmet from 'helmet'
-import { ListOneArticleRouter } from './main/routers'
+import { ListOneArticleRouter, ListAllArticlesRouter } from './main/routers'
 
 const app = express()
 
@@ -14,5 +14,6 @@ app.use(urlencoded({ extended: false }))
 app.use(helmet())
 
 ListOneArticleRouter(app)
+ListAllArticlesRouter(app)
 
 export { app }
