@@ -136,4 +136,35 @@ describe('MongoArticleRepository', () => {
       await expect(promise).rejects.toThrow(new Error('any_error'))
     })
   })
+
+  describe('delete', () => {
+    it('should return true if article deletion succeeds', async () => {
+      const { featured, title, url, imageUrl, newsSite, summary, publishedAt, launches, events } = articlesStub[0]
+
+      const createdArticle = await ArticleModel.create({ featured, title, url, imageUrl, newsSite, summary, publishedAt, launches, events })
+      const articleID = createdArticle._id
+
+      const result = await sut.delete({ id: articleID })
+
+      expect(result).toBeTruthy()
+    })
+
+    it('should return false if article deletion fails', async () => {
+      const mongoArticleRepo: MockProxy<MongoArticleRepository> = mock()
+      mongoArticleRepo.delete.mockResolvedValueOnce(false)
+
+      const result = await sut.delete({ id: '1' })
+
+      expect(result).toBeFalsy()
+    })
+
+    it('should rethrow if MongoArticleRepository throws', async () => {
+      const mongoArticleRepo: MockProxy<MongoArticleRepository> = mock()
+      mongoArticleRepo.delete.mockRejectedValueOnce(new Error('any_error'))
+
+      const promise = mongoArticleRepo.delete({ id: '1' })
+
+      await expect(promise).rejects.toThrow(new Error('any_error'))
+    })
+  })
 })

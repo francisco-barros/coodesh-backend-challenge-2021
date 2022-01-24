@@ -1,9 +1,13 @@
-import { ListOneArticleRepository, ListAllArticlesRepository, CreateArticleRepository } from 'domain/repositories'
+import { ListOneArticleRepository,
+  ListAllArticlesRepository,
+  CreateArticleRepository,
+  DeleteArticleRepository } from 'domain/repositories'
 import { ArticleModel } from '../models'
 
 export class MongoArticleRepository implements ListOneArticleRepository,
 ListAllArticlesRepository,
-CreateArticleRepository {
+CreateArticleRepository,
+DeleteArticleRepository {
   async listOne ({ id }: ListOneArticleRepository.Input): Promise<ListOneArticleRepository.Output> {
     const article = await ArticleModel.findById({ _id: id })
 
@@ -102,5 +106,13 @@ CreateArticleRepository {
     }
 
     return articleDTO
+  }
+
+  async delete ({ id }: DeleteArticleRepository.Input): Promise<DeleteArticleRepository.Output> {
+    const result = await ArticleModel.deleteOne({ _id: id })
+
+    if (result.deletedCount === 0) return false
+
+    return true
   }
 }
