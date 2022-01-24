@@ -26,3 +26,12 @@ export namespace CreateArticleRepository {
   export type Input =  Omit<Article, 'id'>
   export type Output = Article | null
 }
+
+export interface DeleteArticleRepository {
+  delete: (input: DeleteArticleRepository.Input) => Promise<DeleteArticleRepository.Output>
+}
+
+export namespace DeleteArticleRepository {
+  export interface Input { id: string }
+  export type Output = boolean // true = deletion success | false = deletion fails
+}
