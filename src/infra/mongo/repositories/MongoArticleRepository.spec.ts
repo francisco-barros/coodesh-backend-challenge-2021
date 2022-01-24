@@ -11,7 +11,6 @@ describe('MongoArticleRepository', () => {
   const input = { page: 1, limit: 1 }
 
   const articlesStub = [{
-    _id: 1,
     featured: false,
     title: 'any_title',
     url: 'any_url',
@@ -28,7 +27,6 @@ describe('MongoArticleRepository', () => {
       provider: 'any_provider'
     }]
   },{
-    _id: 2,
     featured: false,
     title: 'other_title',
     url: 'other_url',
@@ -63,10 +61,12 @@ describe('MongoArticleRepository', () => {
 
   describe('listOne', () => {
     it('should return an article if article exists', async () => {
-      await ArticleModel.create(articlesStub[0])
+      const createdArticle = await ArticleModel.create(articlesStub[0])
+      const articleID = createdArticle._id
 
-      const article = await sut.listOne({ id: 1 })
-      expect(article?.id).toEqual(1)
+      const article = await sut.listOne({ id: articleID })
+
+      expect(article?.id).toBeTruthy()
     })
 
     it('should return null if article does not exist', async () => {
@@ -102,6 +102,36 @@ describe('MongoArticleRepository', () => {
       mongoClassRepo.listAll.mockRejectedValueOnce(new Error('any_error'))
 
       const promise = mongoClassRepo.listAll(input)
+
+      await expect(promise).rejects.toThrow(new Error('any_error'))
+    })
+  })
+
+  describe('create', () => {
+    it('should return an article if article creation succeeds', async () => {
+      const { featured, title, url, imageUrl, newsSite, summary, publishedAt, launches, events } = articlesStub[0]
+      const article = await sut.create({ featured, title, url, imageUrl, newsSite, summary, publishedAt, launches, events })
+
+      expect(article?.id).toBeTruthy()
+    })
+
+    it('should return null if article creation fails', async () => {
+      const { featured, title, url, imageUrl, newsSite, summary, publishedAt, launches, events } = articlesStub[0]
+
+      const mongoArticleRepo: MockProxy<MongoArticleRepository> = mock()
+      mongoArticleRepo.create.mockResolvedValueOnce(null)
+
+      const result = await mongoArticleRepo.create({ featured, title, url, imageUrl, newsSite, summary, publishedAt, launches, events })
+      expect(result).toBeNull()
+    })
+
+    it('should rethrow if MongoArticleRepository throws', async () => {
+      const { featured, title, url, imageUrl, newsSite, summary, publishedAt, launches, events } = articlesStub[0]
+      const mongoArticleRepo: MockProxy<MongoArticleRepository> = mock()
+
+      mongoArticleRepo.create.mockRejectedValueOnce(new Error('any_error'))
+
+      const promise = mongoArticleRepo.create({ featured, title, url, imageUrl, newsSite, summary, publishedAt, launches, events })
 
       await expect(promise).rejects.toThrow(new Error('any_error'))
     })
