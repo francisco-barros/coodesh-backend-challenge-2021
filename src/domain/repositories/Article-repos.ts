@@ -17,3 +17,12 @@ export namespace ListAllArticlesRepository {
   export interface Input { page?: number, limit?: number }
   export type Output = Article[] | null
 }
+
+export interface CreateArticleRepository {
+  create: (input: CreateArticleRepository.Input) => Promise<CreateArticleRepository.Output>
+}
+
+export namespace CreateArticleRepository {
+  export type Input =  Omit<Article, 'id'>
+  export type Output = Article | null
+}
