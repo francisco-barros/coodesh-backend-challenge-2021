@@ -1,4 +1,5 @@
 export * from './ListOneArticleController'
 export * from './ListAllArticlesController'
 export * from './CreateArticleController'
+export * from './DeleteArticleController'
 export * from './controller'
