@@ -24,6 +24,11 @@ export const badRequest = (error: Error): HttpResponse<Error> => ({
   data: error
 })
 
+export const unprocessableEntity = (error: Error): HttpResponse<Error> => ({
+  statusCode: 422,
+  data: error
+})
+
 export const notFound = (error: Error): HttpResponse<Error> => ({
   statusCode: 404,
   data: error
