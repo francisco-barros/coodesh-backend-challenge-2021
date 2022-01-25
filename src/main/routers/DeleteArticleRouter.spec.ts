@@ -60,13 +60,12 @@ describe('DeleteClassRouter', () => {
       .expect(404)
       .send()
 
-      expect(response.body).toEqual({
-        error: 'Error, article id not found for deletion'
-      })
+    expect(response.body).toEqual({
+      error: 'Error, article id not found for deletion'
+    })
   })
 
   it('should return error on infra/server error', async () => {
-
     jest.spyOn(ArticleModel, 'deleteOne').mockImplementationOnce(() => {
       throw new Error('any error')
     })
