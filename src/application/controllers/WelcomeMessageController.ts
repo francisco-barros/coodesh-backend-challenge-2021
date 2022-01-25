@@ -10,7 +10,7 @@ export class WelcomeMessageController extends Controller {
 
   async handle (_request: any): Promise<HttpResponse<Output>> {
     try {
-      const welcomeMessage = `Back-end Challenge 2021 🏅 - Space Flight News`
+      const welcomeMessage = 'Back-end Challenge 2021 🏅 - Space Flight News'
 
       return ok(welcomeMessage)
     } catch (error) {
