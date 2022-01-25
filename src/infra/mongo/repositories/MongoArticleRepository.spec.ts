@@ -26,7 +26,7 @@ describe('MongoArticleRepository', () => {
       id: 'any_event_id',
       provider: 'any_provider'
     }]
-  },{
+  }, {
     featured: false,
     title: 'other_title',
     url: 'other_url',
@@ -163,6 +163,62 @@ describe('MongoArticleRepository', () => {
       mongoArticleRepo.delete.mockRejectedValueOnce(new Error('any_error'))
 
       const promise = mongoArticleRepo.delete({ id: '1' })
+
+      await expect(promise).rejects.toThrow(new Error('any_error'))
+    })
+  })
+
+  describe('update', () => {
+    it('should return an article if article update succeeds', async () => {
+      const {
+        featured,
+        title,
+        url,
+        imageUrl,
+        newsSite,
+        summary,
+        publishedAt,
+        launches,
+        events
+      } = articlesStub[0]
+
+      const createdArticle = await ArticleModel.create({
+        featured,
+        title,
+        url,
+        imageUrl,
+        newsSite,
+        summary,
+        publishedAt,
+        launches,
+        events
+      })
+
+      const articleID = createdArticle._id
+      const newEvents = [{
+        id: 'any_event_id',
+        provider: 'new_event_provider'
+      }]
+
+      const updatedArticle = await sut.update({ id: articleID, events: newEvents })
+
+      expect(updatedArticle!.id).toBeTruthy()
+      expect(updatedArticle!.events[0]?.provider).toBe(newEvents[0].provider)
+    })
+
+    it('should return null if article update fails', async () => {
+      const mongoArticleRepo: MockProxy<MongoArticleRepository> = mock()
+      mongoArticleRepo.update.mockResolvedValueOnce(null)
+
+      const result = await sut.update({ id: 1, title: 'new_title' })
+      expect(result).toBeNull()
+    })
+
+    it('should rethrow if MongoArticleRepository throws', async () => {
+      const mongoArticleRepo: MockProxy<MongoArticleRepository> = mock()
+      mongoArticleRepo.update.mockRejectedValueOnce(new Error('any_error'))
+
+      const promise = mongoArticleRepo.update({ id: 1, title: 'new_title' })
 
       await expect(promise).rejects.toThrow(new Error('any_error'))
     })
