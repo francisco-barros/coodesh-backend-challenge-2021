@@ -3,8 +3,42 @@
 ## Introdução
 >  This is a challenge by [Coodesh](https://coodesh.com/)
 
-Este é um desafio para que possamos ver as suas habilidades como Back-end Developer.
+**Este é um desafio de Backend com Nodejs para a plataforma Coodesh.**
 
+### Vídeo com apresentação do desafio técnico:
+Acesse: [Apresentação Desafio Coodesh Back-end Challenge](https://youtu.be/DRbWKogxCYc);
+
+### Como rodar a aplicação:
+Instale as dependências <br>
+`npm install` <br>
+
+Crie arquivo **.env** na raiz do projeto e preencha as variáveis de ambiente **PORT**(Porta que rodará a aplicação) e **MONGO_URI**(URI do seu banco MongoDB) <br><br>
+
+Para fazer seed no seu banco de dados execute o comando <br>
+`npm run seed`
+
+Para rodar o projeto execute o comando <br>
+`npm run start:dev`
+
+Para rodar os testes execute o comando abaixo(Os testes de banco de dados rodam em memória e não afetarão seu banco de dados físico) <br>
+`npm run test`
+
+Para padronizar o código do projeto, execute o comando<br>
+`npm run lint:fix`
+
+
+### Tecnologias e metodologias utilizadas:
+
+- Nodejs com Typescript e Express.js;
+- Mongoose com testes de banco de dados em memória;
+- Arquitetura Limpa, Design Patterns, SOLID, TDD com testes unitários e de integração;
+- Testes com Jest, Jest-Mock-Extended e Supertest;
+- Formatação de código com Eslint e verificação de código com Husky;
+- Configuração de variáveis de ambiente com Dotenv;
+- Script para seed de banco de dados;
+- Atualização de banco de dados com novos artigos todo dia através de CRON;
+
+### Apresentação do desafio de Backend:
 Nesse desafio você deverá desenvolver uma REST API que utilizará os dados do projeto [Space Flight News](https://api.spaceflightnewsapi.net/v3/documentation), uma API pública com informações relacionadas a voos espaciais. O projeto a ser desenvolvido por você tem como objetivo criar a API permitindo assim a conexão de outras aplicações.
 
 [SPOILER] As instruções de entrega e apresentação do challenge estão no final deste Readme (=
