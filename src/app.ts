@@ -8,7 +8,8 @@ import {
   ListAllArticlesRouter,
   CreateArticleRouter,
   DeleteArticleRouter,
-  UpdateArticleRouter
+  UpdateArticleRouter,
+  WelcomeMessageRouter
 } from './main/routers'
 
 const app = express()
@@ -24,5 +25,6 @@ ListAllArticlesRouter(app)
 CreateArticleRouter(app)
 DeleteArticleRouter(app)
 UpdateArticleRouter(app)
+WelcomeMessageRouter(app)
 
 export { app }
