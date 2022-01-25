@@ -24,7 +24,7 @@ describe('ListOneArticleController', () => {
       id: 'any_event_id',
       provider: 'any_provider'
     }]
-  },{
+  }, {
     id: 2,
     featured: false,
     title: 'other_title',
@@ -55,7 +55,6 @@ describe('ListOneArticleController', () => {
     expect(sut).toBeInstanceOf(Controller)
   })
 
-
   it('should return 404 if articles are not found', async () => {
     const httpResponse = await sut.handle({})
 
@@ -70,7 +69,7 @@ describe('ListOneArticleController', () => {
       data: error
     })
 
-    const httpResponse = await sut.handle({page: 1, limit: 1})
+    const httpResponse = await sut.handle({ page: 1, limit: 1 })
 
     expect(httpResponse.statusCode).toEqual(500)
     expect(httpResponse.data).toBeInstanceOf(Error)
@@ -78,7 +77,7 @@ describe('ListOneArticleController', () => {
 
   it('should return 200 if listAllArticlesService succeeds', async () => {
     listAllArticlesService.listAll.mockResolvedValueOnce(articlesStub)
-    const httpResponse = await sut.handle({page: 1, limit: 2})
+    const httpResponse = await sut.handle({ page: 1, limit: 2 })
 
     expect(httpResponse).toEqual({
       statusCode: 200,
