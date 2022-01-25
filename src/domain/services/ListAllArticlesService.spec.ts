@@ -24,7 +24,7 @@ describe('ListAllArticlesService', () => {
       id: 'any_event_id',
       provider: 'any_provider'
     }]
-  },{
+  }, {
     id: 2,
     featured: false,
     title: 'other_title',
