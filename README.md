@@ -6,7 +6,7 @@
 **Este é um desafio de Backend com Nodejs para a plataforma Coodesh.**
 
 ### Vídeo com apresentação do desafio técnico:
-Acesse: [Apresentação Desafio Coodesh Back-end Challenge](https://youtu.be/DRbWKogxCYc);
+Acesse: [Apresentação Desafio Coodesh Back-end Challenge](https://youtu.be/PlIxeajeMVc);
 
 ### Como rodar a aplicação:
 Instale as dependências <br>
